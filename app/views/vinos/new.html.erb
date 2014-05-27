@@ -1,0 +1,34 @@
+<% provide(:title, 'Alta de un Vino') %>
+<p> </p>
+<h2>Alta de un Vino</h2>
+
+<div class="row">
+  <div class="span3 offset3 ">
+  
+    <%= form_for(@vino) do |f| %>
+
+      <%= f.label "Vino nombre comercial" %>
+      <%= f.text_field :vino, :required => true, :class => "uneditable-input" %>
+
+      <%= f.label "Denominación de origen o Zona" %>
+      <%= f.text_field :zona, :required => true %>
+
+      <%= f.label "Tipo" %>
+      <%= f.select(:tipo, Vino::TIPO_OPTIONS) %>
+       
+      <%= f.label "Añada" %>
+      <%= f.text_field :anno, :required => true %>
+
+      <%= f.label "Grados Alcohol" %>
+      <%= f.text_field :grados, :required => true %>
+
+      <%= f.label "Precio Compra" %>
+      <%= f.text_field :precio, :required => true %>
+      <p></p>
+      <%= f.submit "Guardar", class: "btn  btn-success btn-xs" %>
+      <%= link_to "Volver", vinos_path, class:"btn btn-info btn-xs"  %>
+       
+    <% end %>
+    
+  </div>
+</div>

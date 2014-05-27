@@ -1,0 +1,59 @@
+<% provide(:title, 'Lista de Catas') %>
+<h2>Lista de Catas</h2>
+
+<%= will_paginate %>
+<p></p>
+<table class="table table-striped let">
+    <tr>
+        <th>Catador</th>
+        <th>Fecha</th>
+        <th>Brillo</th>
+        <th>Amarillo</th>
+        <th>Rojo</th>
+        <th>Olfato</th>
+        <th>Retrolfato</th>
+        <th>Peridental</th>
+        <th>Palatina</th>
+        <th>Lingual</th>
+        <th>Retrogusto</th>
+        
+        <% if det_tipo_vino? %>
+          <th>Comp.Tinto</th>
+        <% else %>
+          <th>Comp.Blanco</th>
+        <% end %>
+        <th>TOTAL</th>
+        
+    </tr>  
+<% @cats.each do |cat| %> 
+    <tr>
+        <td><%= cat.catador %></td>
+        <td><%= cat.updated_at.strftime("%d/%m/%Y") %></td>
+        <td><%= cat.brillo %></td>
+        <td><%= cat.amarillo %></td>
+        <td><%= cat.rojo %></td>
+        <td><%= cat.olfato %></td>
+        <td><%= cat.retro_olfato %></td>
+        <td><%= cat.peridental %></td>
+        <td><%= cat.palatina %></td>
+        <td><%= cat.lingual %></td>
+        <td><%= cat.retrogusto %></td>
+        
+        <% if det_tipo_vino? %>
+          <td><%= cat.complemento_tinto %></td>
+        <% else %>  
+          <td><%= cat.complemento_blanco %></td>
+        <% end %>  
+        <td><%= cat.total %></td>
+        <td><%= link_to " |Modificar", edit_cat_path(cat.id) %></td>
+        <td><%= link_to " Borrar", 
+         cat, method: :delete,data: { confirm: "¿Estas seguro?" },
+          :class => 'btn btn-mini btn-danger' %></td>
+    </tr>
+    <% end %>
+</table>
+
+
+<%= will_paginate %>
+<p><%= link_to "Volver", vinos_path, class:"btn btn-info btn-xs"  %></p>
+

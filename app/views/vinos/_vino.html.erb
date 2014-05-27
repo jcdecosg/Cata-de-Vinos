@@ -1,0 +1,15 @@
+
+<li>
+
+      <%= link_to vino.vino, vino,size: 40 %>
+      <%= link_to vino.zona, vino,size: 20 %>
+      <%= link_to vino.tipo, vino,size: 10 %>
+      <%= link_to vino.anno, vino,size: 4 %>
+      
+      <%= link_to " |Borrar", vino, method: :delete,
+                                  data: { confirm: "¿Estas seguro?" } %>
+      <%= link_to " |Modificar", edit_vino_path(vino.id) %>
+      <%= link_to " |Crear Cata", new_vino_cat_path(vino.id) %>
+      <%= link_to " |Ver Catas", vino_cats_path(vino.id) %>
+ </li>
+ 

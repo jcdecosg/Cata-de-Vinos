@@ -1,0 +1,47 @@
+<% provide(:title, 'Editar un Vino') %>
+<h2>Editar un Vino</h2>
+
+<div class="row">
+  <div class="span6 offset3">
+
+    <%= form_for(@vino) do |f| %>
+
+      <%= f.label "Vino nombre comercial" %>
+      <%= f.text_field :vino, :required => true %>
+
+      <%= f.label "Denominación de origen o Zona" %>
+      <%= f.text_field :zona, :required => true %>
+      
+      <%= f.label "Tipo" %>
+      <% if have_cat? %>
+        <%= f.text_field :tipo, :readonly=>"readonly" %>
+      <% else %>
+        <%= f.text_field :tipo, Vino::TIPO_OPTIONS, :required => true %>
+      <% end %>
+
+
+      <%= f.label "Añada" %>
+      <%= f.text_field :anno, :required => true %>
+      <%= f.label "Grados Alcohol" %>
+      <%= f.text_field :grados, :required => true %>
+      <%= f.label "Precio Compra" %>
+      <%= f.text_field :precio, :required => true %>
+      <% if have_cat? %>
+        <%= f.label "NªCatas" %>
+        <%= f.text_field :num_catas, :readonly=>"readonly" %>
+        <%= f.label "Catas valor medio" %>
+        <%= f.text_field :cat_med, :readonly=>"readonly" %>
+        <%= f.label "Catas valor mayor" %>
+        <%= f.text_field :cat_may, :readonly=>"readonly" %>
+        <%= f.label "Catas valor menor" %>
+        <%= f.text_field :cat_min, :readonly=>"readonly" %>
+      <% end %>
+      
+      <p> </p>
+
+      <%= f.submit "Actualizar", class: "btn  btn-success btn-xs" %>
+      <%= link_to "Volver", vinos_path, class:"btn btn-info btn-xs"  %>
+    <% end %>
+
+  </div>
+</div>

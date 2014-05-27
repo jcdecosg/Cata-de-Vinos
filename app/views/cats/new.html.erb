@@ -1,0 +1,139 @@
+<% provide(:title, 'Registrar una Cata') %>
+<script>
+function fncSumar(){
+caja=document.forms["suma"].elements;
+var brillo = Number(caja["cat[brillo]"].value);
+var amarillo = Number(caja["cat[amarillo]"].value);
+var rojo = Number(caja["cat[rojo]"].value);
+var olfato = Number(caja["cat[olfato]"].value);
+var retro_olfato = Number(caja["cat[retro_olfato]"].value);
+var peridental = Number(caja["cat[peridental]"].value);
+var palatina = Number(caja["cat[palatina]"].value);
+var lingual = Number(caja["cat[lingual]"].value);
+var retrogusto = Number(caja["cat[retrogusto]"].value);
+var complemento_blanco = Number(caja["cat[complemento_blanco]"].value);
+var complemento_tinto = Number(caja["cat[complemento_tinto]"].value);
+total=brillo+amarillo+rojo+olfato+retro_olfato+peridental+palatina+lingual+
+retrogusto+complemento_blanco+complemento_tinto;
+if(!isNaN(total)){
+caja["cat[total]"].value=brillo+amarillo+rojo+olfato+retro_olfato+peridental+palatina+lingual+
+retrogusto+complemento_blanco+complemento_tinto;
+}
+}
+</script>
+<div class="page-header">
+<h2>Registrar una Cata</h2>
+
+
+<!-- Incluimos específicamente la url por bug de rails  -->
+      <%= form_for @cat, url: vino_cats_path, :html => {:name => "suma"} do |f| %>
+      
+        
+        <%= f.label "Catador ", :class => 'control-label'  %>
+        <%= f.text_field :catador, { :required=> "required"}%>
+        <%= f.label "email ", :class => 'control-label' %>
+        <%= f.text_field :email, { :type=> "email", :placeholder=> "name@example.com",
+          :required=> "required"} %>
+        
+      
+      <h5>Vista</h5>
+      <table class="table-bordered table-striped">
+      <tr>
+      <th><%= f.label "Puntos Brillo 0-10" %></th>
+      <th><%= f.label "Puntos Color Amarillo 0-10" %></th>
+      <th><%= f.label "Puntos Color Rojo 0-10" %></th>
+      </tr>
+
+       <tr>
+       <td><%= f.text_field :brillo, {:onkeyup =>"fncSumar()",
+           :type=> "number",:min=> "0", :max=> "10", :maxlength=> "2",
+           :required => true} %></td>
+       <td><%= f.text_field :amarillo, {:onkeyup =>"fncSumar()",
+          :type=> "number", :min=> "0", :max=> "10", :maxlength=> "2",
+          :required => true} %></td>  
+      <td><%= f.text_field :rojo, {:onkeyup =>"fncSumar()",
+       :type=> "number", :min=> "0", :max=> "10", :maxlength=> "2",:required => true} %></td>
+      </tr>
+      </table>
+      <h5>Olfato</h5>
+      <table class="table-bordered table-striped">
+      <tr>
+      <th><%= f.label "Puntos Olfato directo 0-10" %></th>
+      <th><%= f.label "Puntos Retro Olfato 0-10" %></th>
+      
+      </tr>
+      <tr>
+      <td><%= f.text_field :olfato, {:onkeyup =>"fncSumar()",  
+       :type=> "number", :min=> "0", :max=> "10", :maxlength=> "2", :required => true} %></td>
+      <td><%= f.text_field :retro_olfato, {:onkeyup =>"fncSumar()",  
+       :type=> "number", :min=> "0", :max=> "10", :maxlength=> "2", :required => true} %></td>
+      </tr>
+      </table>
+      <h5>Gusto</h5>
+      <table class="table-bordered table-striped">
+      <tr>
+      <th><%= f.label "Puntos residual peridental 0-10" %></th>
+      <th><%= f.label "Puntos residual palatina 0-10" %></th>
+      <th><%= f.label "Puntos residual lingual 0-10" %></th>
+      </tr>
+      <tr>
+      <td><%= f.text_field :peridental, {:onClick=>"fncSumar()",  
+      :type=> "number", :min=> "0", :max=> "10", :maxlength=> "2", :required => true} %></td>
+      <td><%= f.text_field :palatina, {:onClick=>"fncSumar()",
+      :type=> "number", :min=> "0", :max=> "10", :maxlength=> "2", :required => true} %></td>
+      <td><%= f.text_field :lingual, {:onkeyup =>"fncSumar()",
+       :type=> "number", :min=> "0", :max=> "10", :maxlength=> "2", :required => true} %></td>
+      </tr>
+      </table>
+      <table class="table-bordered table-striped">
+      <tr>
+      <th><%= f.label "Puntos residual retrogusto 0-10" %></th>
+      <% if det_tipo_vino? %>
+      <th><%= f.label "Puntos armonía tintos 0-10" %></th>
+      <% else %>
+      <th><%= f.label "Puntos armonía blancos 0-20" %></th>
+      <% end %>
+       
+      </tr>
+      <tr>
+
+      <td><%= f.text_field :retrogusto, {:onkeyup =>"fncSumar()",
+      :type=> "number", :min=> "0", :max=> "10", :maxlength=> "2", :required => true} %></td>
+       <% if det_tipo_vino? %>
+      <td><%= f.text_field :complemento_tinto, {:onkeyup =>"fncSumar()", 
+       :type=> "number", :min=> "0", :max=> "20",
+        :maxlength=> "2", :required => true} %></td>
+       <td><%= f.text_field :complemento_blanco, {:onkeyup =>"fncSumar()", 
+       :type=> "hidden", :min=> "0", :max=> "20",
+        :maxlength=> "2"} %></td>
+       <% else %>  
+       <td><%= f.text_field :complemento_blanco, {:onkeyup =>"fncSumar()", 
+        :type=> "number", :min=> "0", :max=> "20",
+        :maxlength=> "2", :required => true} %></td>        
+      <td><%= f.text_field :complemento_tinto, {:onkeyup =>"fncSumar()", 
+       :type=> "hidden", :min=> "0", :max=> "20",
+       :maxlength=> "2"} %></td>
+        <% end %>
+      </tr>
+      </table>
+      
+      <%= f.label "Comentarios", :class => 'control-label'  %>
+      <div class="controls">
+          <%= f.text_area :comentario, :rows=>3, :cols=>90, :required=> "required" %>
+      </div>
+      
+      
+      <h5>TOTAL DE LA CATA</h5>
+      <%= f.text_field :total, {:onkeyup =>"fncSumar()", 
+       :onClick=>"fncSumar()", :readonly=>"readonly"} %>
+
+       <p> </p>
+      
+
+      <%= f.submit "Guardar", class: "btn  btn-success btn-xs" %>
+      <%= link_to "Volver", vinos_path, class:"btn btn-info btn-xs"  %>
+    <% end %>
+    
+ </div>
+
+      

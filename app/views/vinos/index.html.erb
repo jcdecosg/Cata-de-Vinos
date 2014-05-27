@@ -1,0 +1,47 @@
+<% provide(:title, 'Lista de Vinos') %>
+<h2>  Lista de Vinos</h2>
+
+<%= will_paginate %>
+<p></p>
+<table class="table table-striped let">
+    <tr>
+        <th>Vino</th>
+        <th>Denominación</th>
+        <th>Tipo</th>
+        <th>Añada</th>
+        <th>ºAlc</th>
+        <th>Precio Compra</th>
+        <th>Nªcatas</th>
+        <th>Valor medio</th>
+        <th>Valor mayor</th>
+        <th>Valor menor</th>
+        
+    </tr>  
+<% @vinos.each do |vino| %> 
+    <tr>
+        <td><%= vino.vino %></td>
+        <td><%= vino.zona %></td>
+        <td><%= vino.tipo %></td>
+        <td><%= vino.anno %></td>
+        <td><%= vino.grados %></td>
+        <td><%= vino.precio %></td>
+        <td><%= vino.num_catas %></td>
+        <td><%= vino.cat_med %></td>
+        <td><%= vino.cat_may %></td>
+        <td><%= vino.cat_min %></td>
+        <td><%= link_to " |Modificar", edit_vino_path(vino.id) %></td>
+        <td><%= link_to " Borrar", vino, method: :delete,data: { confirm: "¿Estas seguro?" },
+        :class => 'btn btn-mini btn-danger' %></td>
+        <td><%= link_to " |CrearCata", new_vino_cat_path(vino.id) %></td>
+        <td><%= link_to " |VerCatas", vino_cats_path(vino.id) %></td>
+        
+    </tr>
+    <% end %>
+</table>
+
+<%= will_paginate %>
+
+<%= link_to "Alta de un Vino", crearv_path, class: "btn btn-primary btn-sm" %>
+
+ 
+
